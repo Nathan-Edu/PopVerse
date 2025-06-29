@@ -1,0 +1,42 @@
+<div class="min-h-screen bg-gradient-to-br from-cyber-dark via-background to-cyber-gray pt-20 px-4">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-10">
+      <h1 class="text-4xl font-bold bg-gradient-to-r from-neon-purple to-neon-blue bg-clip-text text-transparent">
+        Fóruns PopVerse
+      </h1>
+      <p class="text-gray-400 text-lg mt-2">
+        Escolha uma categoria para entrar na discussão!
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div *ngFor="let cat of categorias" class="p-6 rounded-xl border border-white/10 bg-white/5 hover:border-neon-purple/50 transition cursor-pointer">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4">
+            <div class="text-4xl">{{ cat.icone }}</div>
+            <div>
+              <h3 class="text-lg font-semibold bg-gradient-to-r {{ cat.cor }} bg-clip-text text-transparent">
+                {{ cat.nome }}
+              </h3>
+              <p class="text-sm text-gray-400">{{ cat.descricao }}</p>
+            </div>
+          </div>
+          <div class="text-sm text-gray-400 text-right space-y-1">
+            <div class="flex items-center space-x-1">
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8a9 9 0 100-18 9 9 0 000 18z" />
+              </svg>
+              <span>{{ cat.topicos }} tópicos</span>
+            </div>
+            <div class="flex items-center space-x-1">
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V10a2 2 0 012-2h2m4 0V6a4 4 0 118 0v2" />
+              </svg>
+              <span>{{ cat.posts }} posts</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

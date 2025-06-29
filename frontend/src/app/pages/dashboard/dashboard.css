@@ -1,0 +1,25 @@
+.card-link {
+  display: block;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  text-align: center;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  backdrop-filter: blur(8px);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.card-link:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.card-link {
+  @apply block bg-white/5 border border-white/10 px-6 py-5 text-center text-white no-underline backdrop-blur-md transition hover:scale-105 shadow-lg;
+  border-radius: 1rem; /* override opcional */
+}
+
+

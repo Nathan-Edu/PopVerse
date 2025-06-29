@@ -1,0 +1,38 @@
+<nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-br from-cyber-dark/80 via-background/80 to-cyber-gray/80 backdrop-blur-md border-b border-white/10 shadow-md">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <a routerLink="/" class="text-2xl font-bold bg-gradient-to-r from-neon-purple to-neon-blue bg-clip-text text-transparent">
+        PopVerse
+      </a>
+
+      <div class="hidden md:flex space-x-6 text-sm font-medium text-gray-300">
+        <a href="filmes" class="hover:text-neon-purple transition">Filmes</a>
+        <a href="series" class="hover:text-neon-purple transition">Séries</a>
+        <a href="animes" class="hover:text-neon-purple transition">Animes</a>
+        <a href="games" class="hover:text-neon-purple transition">Games</a>
+        <a href="comics" class="hover:text-neon-purple transition">HQs</a>
+        <a href="foruns" class="hover:text-neon-purple transition">Fóruns</a>
+      </div>
+
+      <div class="hidden md:flex items-center space-x-4">
+        <div class="relative">
+          <input
+            type="text"
+            placeholder="Buscar..."
+            class="bg-white/5 border border-white/10 rounded-lg pl-10 pr-4 py-2 text-sm text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-neon-purple focus:border-transparent"
+          />
+          <svg class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
+          </svg>
+        </div>
+        <a routerLink="/login" class="px-3 py-1 border border-neon-purple text-neon-purple rounded hover:bg-neon-purple hover:text-white transition">
+          Login
+        </a>
+        <a routerLink="/cadastro" class="px-3 py-1 bg-gradient-to-r from-neon-purple to-neon-blue text-white rounded hover:opacity-90 transition">
+          Cadastrar
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>

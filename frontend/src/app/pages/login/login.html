@@ -1,0 +1,54 @@
+<div class="min-h-screen bg-gradient-to-br from-cyber-dark via-background to-cyber-gray flex items-center justify-center px-4">
+  <div class="w-full max-w-md">
+    <!-- Logo -->
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold bg-gradient-to-r from-neon-purple to-neon-blue bg-clip-text text-transparent">
+        PopVerse
+      </h1>
+      <p class="text-gray-400 mt-2">Entre na sua conta</p>
+    </div>
+
+    <!-- Login Card -->
+    <div class="rounded-lg border border-white/10 bg-white/5 p-6 shadow-lg backdrop-blur-md">
+      <form (ngSubmit)="entrar()" class="space-y-4">
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            [(ngModel)]="email"
+            required
+            class="w-full rounded-md bg-white/5 border border-white/10 px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-neon-purple"
+            placeholder="seu@email.com"
+          />
+        </div>
+
+        <div>
+          <label for="senha" class="block text-sm font-medium text-gray-300 mb-1">Senha</label>
+          <input
+            id="senha"
+            name="senha"
+            type="password"
+            [(ngModel)]="senha"
+            required
+            class="w-full rounded-md bg-white/5 border border-white/10 px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-neon-purple"
+            placeholder="••••••••"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full rounded-md bg-gradient-to-r from-neon-purple to-neon-blue px-4 py-2 text-white font-semibold hover:opacity-90 transition"
+        >
+          Entrar
+        </button>
+      </form>
+
+      <p class="mt-4 text-sm text-center text-gray-400">
+        Não tem uma conta?
+        <a href="/cadastro" class="text-neon-purple hover:text-neon-blue transition font-medium">Cadastre-se</a>
+      </p>
+    </div>
+  </div>
+</div>

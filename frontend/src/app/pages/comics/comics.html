@@ -1,0 +1,83 @@
+<div class="min-h-screen bg-gradient-to-br from-cyber-dark via-background to-cyber-gray pt-20 px-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold mb-4 bg-gradient-to-r from-neon-purple to-neon-blue bg-clip-text text-transparent">
+        HQs / Comics
+      </h1>
+      <p class="text-gray-400 max-w-2xl mx-auto">
+        Explore edições populares de quadrinhos e compartilhe suas avaliações
+      </p>
+    </div>
+
+    <div class="mb-8 space-y-4">
+      <div class="flex flex-col sm:flex-row gap-4">
+        <div class="relative flex-1">
+          <input
+            type="text"
+            placeholder="Buscar comics..."
+            [(ngModel)]="searchTerm"
+            class="pl-10 bg-white/5 border border-white/10 text-white placeholder:text-gray-500 focus:border-neon-purple rounded-lg py-2 w-full"
+          />
+          <svg class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div *ngFor="let hq of filteredHqs()" class="glass-card border border-white/10 group hover:border-neon-purple/50 transition-all duration-300 overflow-hidden rounded-lg">
+        <div class="relative aspect-[2/3] overflow-hidden">
+          <img [src]="hq.image" [alt]="hq.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+          <div class="absolute top-2 right-2 flex justify-center items-center">
+            <button (click)="abrirForum(hq.id)"
+              class="h-8 w-8 p-0 backdrop-blur-sm bg-black/60 text-white hover:text-white hover:bg-black/70 rounded-full border border-white/20 flex items-center justify-center shadow-md">
+              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="absolute top-2 left-2">
+            <span class="px-2 py-1 text-xs bg-black/50 backdrop-blur-sm rounded text-neon-purple border border-neon-purple/30">
+              {{ hq.genre }}
+            </span>
+          </div>
+        </div>
+
+        <div class="p-4">
+          <div class="mb-2">
+            <h3 class="font-semibold text-white text-sm line-clamp-2 group-hover:text-neon-purple transition-colors">{{ hq.title }}</h3>
+            <p class="text-gray-400 text-xs">{{ hq.year }}</p>
+          </div>
+
+          <p class="text-gray-500 text-xs mb-3 line-clamp-2">{{ hq.description }}</p>
+
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center space-x-1">
+              <svg class="h-3 w-3 text-yellow-400 fill-current" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927C9.37 2.006 10.63 2.006 10.951 2.927L12.112 6.276C12.245 6.657 12.607 6.899 13.014 6.899H16.592C17.55 6.899 17.955 8.145 17.168 8.718L14.311 10.79C13.982 11.025 13.845 11.456 13.978 11.837L15.139 15.186C15.46 16.107 14.384 16.855 13.597 16.282L10.74 14.21C10.411 13.975 9.589 13.975 9.26 14.21L6.403 16.282C5.616 16.855 4.54 16.107 4.861 15.186L6.022 11.837C6.155 11.456 6.018 11.025 5.689 10.79L2.832 8.718C2.045 8.145 2.45 6.899 3.408 6.899H6.986C7.393 6.899 7.755 6.657 7.888 6.276L9.049 2.927Z" />
+              </svg>
+              <span class="text-xs text-gray-300">{{ hq.rating }}</span>
+            </div>
+            <span class="text-xs text-gray-500">PopVerse</span>
+          </div>
+
+          <div class="space-y-2">
+            <p class="text-xs text-gray-400">Sua avaliação:</p>
+            <div class="flex space-x-1">
+              <ng-container *ngFor="let star of [1,2,3,4,5]">
+                <svg class="h-3 w-3 cursor-pointer" [ngClass]="star <= hq.userRating ? 'text-neon-purple fill-current' : 'text-gray-600'"
+                  (click)="hq.userRating = star" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M9.049 2.927C9.37 2.006 10.63 2.006 10.951 2.927L12.112 6.276C12.245 6.657 12.607 6.899 13.014 6.899H16.592C17.55 6.899 17.955 8.145 17.168 8.718L14.311 10.79C13.982 11.025 13.845 11.456 13.978 11.837L15.139 15.186C15.46 16.107 14.384 16.855 13.597 16.282L10.74 14.21C10.411 13.975 9.589 13.975 9.26 14.21L6.403 16.282C5.616 16.855 4.54 16.107 4.861 15.186L6.022 11.837C6.155 11.456 6.018 11.025 5.689 10.79L2.832 8.718C2.045 8.145 2.45 6.899 3.408 6.899H6.986C7.393 6.899 7.755 6.657 7.888 6.276L9.049 2.927Z" />
+                </svg>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

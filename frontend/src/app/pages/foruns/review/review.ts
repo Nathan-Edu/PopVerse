@@ -11,26 +11,30 @@ import { ReviewService } from '../../../../services/review.service';
   templateUrl: './review.html'
 })
 export class ReviewComponent {
-  nota: number = 0;
-  novoComentario: string = '';
+  nota = 0;
+  novoComentario = '';
   comentarios: any[] = [];
+  mediaAvaliacao: number | null = null;
 
-  tipo: string = '';
-  midiaId: string = '';
-  titulo: string = '';
-  imagem: string = '';
+  tipo = '';
+  midiaId = '';
+  titulo = '';
+  imagem = '';
 
   usuarioLogado: any = null;
-  jaAvaliou: boolean = false;
-
+  jaAvaliou = false;
+  idDaMinhaReview: string | null = null;
+  editando = false;
+  
   constructor(
     private route: ActivatedRoute,
     private reviewService: ReviewService
   ) {}
 
   ngOnInit() {
-      console.log('Rota ativada!');
-      this.route.params.subscribe(params => {
+    this.usuarioLogado = this.getUser();
+
+    this.route.params.subscribe(params => {
       this.midiaId = params['id'];
       this.tipo = params['tipo'];
       if (this.tipo && this.midiaId) {
@@ -42,9 +46,6 @@ export class ReviewComponent {
       this.titulo = query['titulo'];
       this.imagem = query['img'];
     });
-
-    // Verifica o usuário atual
-    this.usuarioLogado = this.getUser();
   }
 
   isLoggedIn(): boolean {
@@ -66,12 +67,6 @@ export class ReviewComponent {
       return;
     }
 
-    const token = localStorage.getItem('token');
-    if (!token) {
-      alert('Você precisa estar logado para avaliar.');
-      return;
-    }
-
     const review = {
       contentId: `${this.tipo}-${this.midiaId}`,
       rating: this.nota,
@@ -82,25 +77,75 @@ export class ReviewComponent {
       next: () => {
         this.novoComentario = '';
         this.nota = 0;
+        this.editando = false;
         this.carregarComentarios();
-        alert('Avaliação enviada com sucesso!');
+        alert(this.jaAvaliou ? 'Avaliação atualizada com sucesso!' : 'Avaliação enviada com sucesso!');
       },
       error: (err) => {
         console.error('Erro ao enviar avaliação:', err);
-        alert('Você já avaliou esta mídia ou ocorreu um erro.');
+        alert('Erro ao enviar avaliação.');
       }
     });
   }
 
   carregarComentarios() {
+    const contentId = `${this.tipo}-${this.midiaId}`;
     this.reviewService.buscarReviews(this.tipo, this.midiaId).subscribe({
       next: (res) => {
         this.comentarios = res.reviews || [];
+        this.mediaAvaliacao = res.average || null;
+
         const meuId = this.usuarioLogado?._id;
-        this.jaAvaliou = this.comentarios.some(r => r.user?._id === meuId);
+        const minhaReview = this.comentarios.find(r => r.user?._id === meuId);
+
+        if (minhaReview) {
+          this.jaAvaliou = true;
+          this.idDaMinhaReview = minhaReview._id;
+          this.nota = minhaReview.rating;
+          this.novoComentario = minhaReview.comment;
+        } else {
+          this.jaAvaliou = false;
+          this.idDaMinhaReview = null;
+        }
+      },
+      error: (err) => {
+        console.error('Erro ao carregar avaliações:', err);
+      }
+    });
+  }
+
+  editarMinhaReview() {
+    const minhaReview = this.comentarios.find(r => r.user?._id === this.usuarioLogado?._id);
+    if (minhaReview) {
+      this.editando = true;
+      this.nota = minhaReview.rating;
+      this.novoComentario = minhaReview.comment;
+    }
+  }
+
+  cancelarEdicao() {
+    this.editando = false;
+    this.nota = 0;
+    this.novoComentario = '';
+  }
+
+  deletarReview() {
+    if (!this.idDaMinhaReview) return;
+
+    const confirmacao = confirm('Deseja mesmo excluir sua avaliação?');
+    if (!confirmacao) return;
+
+    const contentId = `${this.tipo}-${this.midiaId}`;
+    this.reviewService.deletarReview(contentId).subscribe({
+      next: () => {
+        this.carregarComentarios();
+        this.nota = 0;
+        this.novoComentario = '';
+        this.editando = false;
+        alert('Avaliação deletada com sucesso!');
       },
       error: () => {
-        this.comentarios = [];
+        alert('Erro ao excluir sua avaliação.');
       }
     });
   }

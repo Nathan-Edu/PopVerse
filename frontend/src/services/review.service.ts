@@ -8,7 +8,9 @@ export interface Review {
   comment: string;
   createdAt?: string;
   user?: {
+    _id?: string;
     name: string;
+    profileImage?: string;
   };
 }
 
@@ -18,18 +20,36 @@ export class ReviewService {
 
   constructor(private http: HttpClient) {}
 
-  //  Enviar nova avaliação com token
-  criarReview(review: any): Observable<any> {
-  const token = localStorage.getItem('token');
-  const headers = new HttpHeaders({
-    'Authorization': `Bearer ${token}`
-  });
-  return this.http.post(`${this.apiUrl}`, review, { headers });
-}
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
 
-  //  Buscar avaliações com ID composto tipo-filmeId
+  /**
+   * Criar ou atualizar avaliação.
+   */
+  criarReview(review: Review): Observable<any> {
+    return this.http.post(`${this.apiUrl}`, review, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  /**
+   * Buscar avaliações por tipo e id (ex: filme-123).
+   */
   buscarReviews(tipo: string, id: string): Observable<any> {
     const contentId = `${tipo}-${id}`;
-    return this.http.get<any>(`${this.apiUrl}/${contentId}`);
+    return this.http.get(`${this.apiUrl}/${contentId}`);
+  }
+
+  /**
+   * Deletar avaliação do usuário autenticado.
+   */
+  deletarReview(contentId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${contentId}`, {
+      headers: this.getAuthHeaders()
+    });
   }
 }

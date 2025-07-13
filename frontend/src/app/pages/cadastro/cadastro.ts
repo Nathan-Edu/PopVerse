@@ -24,15 +24,15 @@ export class CadastroComponent {
       username: this.username,
       email: this.email,
       password: this.senha,
-      interests: []
+      interests: [] 
     };
 
     this.authService.register(payload).subscribe({
-      next: (res) => {
+      next: (res: any) => {
         alert('Usuário cadastrado com sucesso!');
         this.router.navigate(['/login']);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Erro no cadastro:', err);
         alert('Erro ao cadastrar. Verifique os campos ou tente outro e-mail.');
       }

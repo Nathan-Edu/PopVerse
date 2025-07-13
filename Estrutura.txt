@@ -125,20 +125,3 @@ backend/
 ├── tsconfig.json
 └── README.md
 
-
-
-export const routes: Routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'cadastro', component: CadastroComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'filmes', component: FilmesComponent },
-  { path: 'series', component: SeriesComponent },
-  { path: 'animes', component: AnimesComponent },
-  { path: 'games', component: GamesComponent },
-  { path: 'comics', component: ComicsComponent },
-  { path: 'foruns', component: ForunsComponent },
-  { path: 'foruns/review/:tipo/:id', component: ReviewComponent },
-  { path: '**', redirectTo: '', pathMatch: 'full' }
-];
-

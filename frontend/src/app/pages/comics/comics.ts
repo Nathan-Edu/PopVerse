@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { HqService, HQ } from '../../../services/comics.service';
-
+import { HqService, HQ } from '../../../services/hq.service';
 
 @Component({
   selector: 'app-hqs',
@@ -20,26 +19,29 @@ export class ComicsComponent implements OnInit {
   constructor(private hqService: HqService, private router: Router) {}
 
   ngOnInit(): void {
-  this.hqService.buscarHqs().subscribe({
-    next: (hqs) => {
-      console.log('HQs recebidas:', hqs);
-      this.hqs = hqs;
-    },
-    error: (err) => {
-      console.error('Erro ao buscar HQs:', err);
-    }
-  });
-}
-
-  abrirForum(id: number) {
-    this.router.navigate(['/foruns', id]);
+    this.hqService.buscarHqs().subscribe({
+      next: (hqs) => {
+        console.log('HQs recebidas:', hqs);
+        this.hqs = hqs;
+      },
+      error: (err) => {
+        console.error('Erro ao buscar HQs:', err);
+      }
+    });
   }
+
+  abrirForum(id: number, titulo: string, tipo: string = 'hq', imagem: string): void {
+  this.router.navigate(
+    ['/foruns', 'review', tipo, id],
+    { queryParams: { titulo, img: imagem } }
+  );
+}
 
   filteredHqs(): HQ[] {
     if (!this.hqs || this.hqs.length === 0) return [];
-    if (!this.searchTerm || this.searchTerm.trim() === '') return this.hqs;
-    return this.hqs.filter((hq) =>
-      hq.title.toLowerCase().includes(this.searchTerm.toLowerCase())
-    );
+    if (!this.searchTerm.trim()) return this.hqs;
+
+    const termo = this.searchTerm.toLowerCase();
+    return this.hqs.filter(hq => hq.title.toLowerCase().includes(termo));
   }
 }

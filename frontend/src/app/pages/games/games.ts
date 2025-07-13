@@ -24,9 +24,12 @@ export class GamesComponent implements OnInit {
     });
   }
 
-  abrirForum(id: number) {
-    this.router.navigate(['/foruns', id]);
-  }
+abrirForum(id: number | string, titulo: string, tipo: string, imagem: string) {
+  this.router.navigate(['/foruns/review', tipo, id], {
+    queryParams: { titulo, img: imagem }
+  });
+}
+
 
   filteredGames(): Game[] {
     if (!this.games || this.games.length === 0) return [];

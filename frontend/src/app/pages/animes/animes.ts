@@ -21,12 +21,16 @@ export class AnimesComponent implements OnInit {
   ngOnInit(): void {
     this.animeService.buscarAnimes().subscribe((animes) => {
       this.animes = animes;
+      console.log('Animes carregados:', animes);
     });
   }
 
-  abrirForum(id: number) {
-    this.router.navigate(['/foruns', id]);
-  }
+  abrirForum(id: string | number, titulo: string, tipo: string, imagem: string) {
+  const contentId = `${tipo}-${id}`;
+  this.router.navigate(['/foruns/review', tipo, id], {
+    queryParams: { titulo, img: imagem }
+  });
+}
 
   filteredAnimes(): Anime[] {
     if (!this.animes || this.animes.length === 0) return [];

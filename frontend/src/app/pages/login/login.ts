@@ -17,15 +17,19 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {}
 
   entrar() {
-    this.authService.login({ email: this.email, password: this.senha }).subscribe({
-  next: (res) => {
-    this.authService.saveToken(res.token, res.user);
-    this.router.navigate(['/dashboard']);
-  },
-  error: (err) => {
-    console.error(err);
-    alert('Erro ao fazer login.');
-  }
-});
-  }
+  this.authService.login({ email: this.email, password: this.senha }).subscribe({
+    next: (res) => {
+      if (res && res.token && res.user) {
+        this.authService.saveToken(res.token, res.user);
+        this.router.navigate(['/dashboard']);
+      } else {
+        alert('Resposta inválida do servidor.');
+      }
+    },
+    error: (err) => {
+      console.error('Erro ao logar:', err);
+      alert('Credenciais inválidas ou erro no login.');
+    }
+  });
+}
 }

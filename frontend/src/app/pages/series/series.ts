@@ -24,9 +24,13 @@ export class SeriesComponent implements OnInit {
     });
   }
 
-  abrirForum(id: number) {
-    this.router.navigate(['/foruns', id]);
-  }
+abrirForum(id: number | string, titulo: string, tipo: string, imagem: string) {
+  const contentId = `${tipo}-${id}`; // correto
+  this.router.navigate(['/foruns/review', tipo, id], {
+    queryParams: { titulo, img: imagem }
+  });
+}
+
 
   filteredSeries(): Serie[] {
     if (!this.series || this.series.length === 0) return [];

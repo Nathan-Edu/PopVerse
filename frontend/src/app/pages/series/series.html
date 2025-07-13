@@ -34,15 +34,17 @@
           <img [src]="serie.image" [alt]="serie.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-          <!-- Botão + -->
-          <div class="absolute top-2 right-2 flex justify-center items-center">
-            <button (click)="abrirForum(serie.id)"
-              class="h-8 w-8 p-0 backdrop-blur-sm bg-black/60 text-white hover:text-white hover:bg-black/70 rounded-full border border-white/20 flex items-center justify-center shadow-md">
-              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-              </svg>
-            </button>
-          </div>
+
+          <!-- Botão + corrigido -->
+<div class="absolute top-2 right-2 flex justify-center items-center">
+  <button 
+    (click)="abrirForum(serie.id, serie.title, 'serie', serie.image)"
+    class="h-8 w-8 p-0 backdrop-blur-sm bg-black/60 text-white hover:text-white hover:bg-black/70 rounded-full border border-white/20 flex items-center justify-center shadow-md">
+    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+    </svg>
+  </button>
+</div>
 
           <!-- Badge de Gênero -->
           <div class="absolute top-2 left-2">

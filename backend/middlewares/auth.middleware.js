@@ -9,8 +9,7 @@ const authMiddleware = (req, res, next) => {
     }
 
     const decoded = jwt.verify(token.replace('Bearer ', ''), process.env.JWT_SECRET);
-    req.user = decoded; // deve conter `id` dentro do token
-
+    req.user = decoded;
     next();
   } catch (error) {
     return res.status(403).json({ error: 'Token inválido.' });

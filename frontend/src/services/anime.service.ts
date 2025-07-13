@@ -15,7 +15,7 @@ export interface Anime {
 
 @Injectable({ providedIn: 'root' })
 export class AnimeService {
-  private apiUrl = 'https://api.jikan.moe/v4/top/anime';
+  private apiUrl = 'http://localhost:5000/anime/top'; 
 
   constructor(private http: HttpClient) {}
 
@@ -34,3 +34,4 @@ export class AnimeService {
     );
   }
 }
+

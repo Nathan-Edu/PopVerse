@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-//import { HomeComponent } from './pages/home';
 import { LoginComponent } from './pages/login/login';
 import { CadastroComponent } from './pages/cadastro/cadastro';
 import { DashboardComponent } from './pages/dashboard/dashboard';
@@ -10,6 +9,7 @@ import { GamesComponent } from './pages/games/games';
 import { ComicsComponent } from './pages/comics/comics';
 import { ForunsComponent } from './pages/foruns/geral/foruns';
 import { ReviewComponent } from './pages/foruns/review/review';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: DashboardComponent },
@@ -22,7 +22,10 @@ export const routes: Routes = [
   { path: 'games', component: GamesComponent },
   { path: 'comics', component: ComicsComponent },
   { path: 'foruns', component: ForunsComponent },
-  { path: 'foruns/review/:tipo/:id', component: ReviewComponent },
-  { path: '**', redirectTo: '', pathMatch: 'full' }
-];
 
+  // Apenas essa rota com proteção de autenticação
+  { path: 'foruns/review/:tipo/:id', component: ReviewComponent, canActivate: [authGuard] },
+
+  { path: '**', redirectTo: '', pathMatch: 'full' }
+
+];

@@ -1,40 +1,41 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../services/auth.service'; // ajuste o caminho se necessário
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [FormsModule],
-  templateUrl: './cadastro.html',
-  styleUrls: ['./cadastro.css']
+  imports: [CommonModule, FormsModule],
+  templateUrl: './cadastro.html'
 })
 export class CadastroComponent {
   nome = '';
+  username = '';
   email = '';
   senha = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
-cadastrar() {
-  const novoUsuario = {
-  name: this.nome,
-  email: this.email,
-  username: this.email.split('@')[0], // ou outro campo
-  password: this.senha,
-  interests: [] // ou undefined
-};
+  cadastrar() {
+    const payload = {
+      name: this.nome,
+      username: this.username,
+      email: this.email,
+      password: this.senha,
+      interests: []
+    };
 
-  this.authService.register(novoUsuario).subscribe({
-    next: () => {
-      alert('Usuário cadastrado com sucesso!');
-      this.router.navigate(['/login']);
-    },
-    error: (err) => {
-      console.error('Erro ao cadastrar:', err);
-      alert('Erro ao cadastrar. Verifique os dados.');
-    }
-  });
-}
+    this.authService.register(payload).subscribe({
+      next: (res) => {
+        alert('Usuário cadastrado com sucesso!');
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.error('Erro no cadastro:', err);
+        alert('Erro ao cadastrar. Verifique os campos ou tente outro e-mail.');
+      }
+    });
+  }
 }

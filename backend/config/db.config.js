@@ -1,23 +1,25 @@
-// backend/config/db.config.js
 const mongoose = require('mongoose');
-require('dotenv').config();
+const dotenv = require('dotenv');
+dotenv.config();
 
+// Conectar ao banco de dados MongoDB
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
     console.log('✅ Banco de dados conectado com sucesso!');
   } catch (error) {
     console.error('❌ Erro ao conectar ao banco:', error);
-    process.exit(1);
+    process.exit(1); // Encerra o processo caso não consiga conectar
   }
 };
 
-// Usando um nome único e consistente para o token, por exemplo, JWT_SECRET
-const jwt = require('jsonwebtoken');
-const secretKey = process.env.JWT_SECRET; // Certifique-se de que essa variável esteja definida no .env
+// Configurações do JWT
 const jwtConfig = {
-  secretKey,
-  expiresIn: '1h',
+  secretKey: process.env.JWT_SECRET || 'suachavesecreta', // Valor padrão caso não esteja no .env
+  expiresIn: '2h', // Tempo de expiração do token JWT
 };
 
 module.exports = { connectDB, jwtConfig };

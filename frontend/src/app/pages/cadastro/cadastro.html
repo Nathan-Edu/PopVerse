@@ -1,6 +1,5 @@
 <div class="min-h-screen bg-gradient-to-br from-cyber-dark via-background to-cyber-gray flex items-center justify-center px-4">
   <div class="w-full max-w-md">
-    <!-- Logo -->
     <div class="text-center mb-8">
       <h1 class="text-4xl font-bold bg-gradient-to-r from-neon-purple to-neon-blue bg-clip-text text-transparent">
         PopVerse
@@ -8,7 +7,6 @@
       <p class="text-gray-400 mt-2">Crie sua conta</p>
     </div>
 
-    <!-- Cadastro Card -->
     <div class="rounded-lg border border-white/10 bg-white/5 p-6 shadow-lg backdrop-blur-md">
       <form (ngSubmit)="cadastrar()" class="space-y-4">
         <div>
@@ -21,6 +19,19 @@
             required
             class="w-full rounded-md bg-white/5 border border-white/10 px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-neon-purple"
             placeholder="Seu nome completo"
+          />
+        </div>
+
+        <div>
+          <label for="username" class="block text-sm font-medium text-gray-300 mb-1">Username</label>
+          <input
+            id="username"
+            name="username"
+            type="text"
+            [(ngModel)]="username"
+            required
+            class="w-full rounded-md bg-white/5 border border-white/10 px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-neon-purple"
+            placeholder="nome-de-usuário"
           />
         </div>
 
@@ -60,7 +71,7 @@
 
       <p class="mt-4 text-sm text-center text-gray-400">
         Já tem uma conta?
-        <a href="/login" class="text-neon-purple hover:text-neon-blue transition font-medium">Faça login</a>
+        <a routerLink="/login" class="text-neon-purple hover:text-neon-blue transition font-medium">Faça login</a>
       </p>
     </div>
   </div>

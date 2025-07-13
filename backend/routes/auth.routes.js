@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/auth.controller');
 
-// 🔍 Verificação de tipo
-console.log('🧪 Tipo de registerUser:', typeof authController.registerUser);
+
 
 // ✅ Cadastro de usuário
 router.post('/signup', authController.registerUser);

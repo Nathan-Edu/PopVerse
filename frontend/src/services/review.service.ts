@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Review {
-  contentId: number;
+  contentId: string;  
   rating: number;
   comment: string;
   createdAt?: string;
@@ -14,19 +14,22 @@ export interface Review {
 
 @Injectable({ providedIn: 'root' })
 export class ReviewService {
-  private apiUrl = 'http://localhost:5000/api/reviews';
+  private apiUrl = 'http://localhost:5000/reviews';
 
   constructor(private http: HttpClient) {}
 
-  enviarReview(review: Review): Observable<any> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    return this.http.post(this.apiUrl, review, { headers });
-  }
+  //  Enviar nova avaliação com token
+  criarReview(review: any): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({
+    'Authorization': `Bearer ${token}`
+  });
+  return this.http.post(`${this.apiUrl}`, review, { headers });
+}
 
-  listarReviews(tipo: string, itemId: number): Observable<Review[]> {
-    return this.http.get<Review[]>(`${this.apiUrl}/${tipo}/${itemId}`);
+  //  Buscar avaliações com ID composto tipo-filmeId
+  buscarReviews(tipo: string, id: string): Observable<any> {
+    const contentId = `${tipo}-${id}`;
+    return this.http.get<any>(`${this.apiUrl}/${contentId}`);
   }
 }

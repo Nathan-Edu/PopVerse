@@ -1,8 +1,16 @@
 const express = require('express');
+const cors = require('cors'); 
 const { connectDB } = require('./config/db.config');
 
 const app = express();
+
+//  Conectar CORS 
+app.use(cors());
+
+// Conectar ao banco
 connectDB();
+
+// Middleware para JSON
 app.use(express.json());
 
 // Rotas

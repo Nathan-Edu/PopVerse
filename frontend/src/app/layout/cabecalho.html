@@ -1,20 +1,25 @@
 <nav class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-br from-cyber-dark/80 via-background/80 to-cyber-gray/80 backdrop-blur-md border-b border-white/10 shadow-md">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
+
+      <!-- Logo -->
       <a routerLink="/" class="text-2xl font-bold bg-gradient-to-r from-neon-purple to-neon-blue bg-clip-text text-transparent">
         PopVerse
       </a>
 
+      <!-- Navegação principal -->
       <div class="hidden md:flex space-x-6 text-sm font-medium text-gray-300">
-        <a href="filmes" class="hover:text-neon-purple transition">Filmes</a>
-        <a href="series" class="hover:text-neon-purple transition">Séries</a>
-        <a href="animes" class="hover:text-neon-purple transition">Animes</a>
-        <a href="games" class="hover:text-neon-purple transition">Games</a>
-        <a href="comics" class="hover:text-neon-purple transition">HQs</a>
-        <a href="foruns" class="hover:text-neon-purple transition">Fóruns</a>
+        <a routerLink="/filmes" class="hover:text-neon-purple transition">Filmes</a>
+        <a routerLink="/series" class="hover:text-neon-purple transition">Séries</a>
+        <a routerLink="/animes" class="hover:text-neon-purple transition">Animes</a>
+        <a routerLink="/games" class="hover:text-neon-purple transition">Games</a>
+        <a routerLink="/comics" class="hover:text-neon-purple transition">HQs</a>
+        <a routerLink="/foruns" class="hover:text-neon-purple transition">Fóruns</a>
       </div>
 
+      <!-- Ações do usuário -->
       <div class="hidden md:flex items-center space-x-4">
+        <!-- Campo de busca -->
         <div class="relative">
           <input
             type="text"
@@ -26,12 +31,24 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
           </svg>
         </div>
-        <a routerLink="/login" class="px-3 py-1 border border-neon-purple text-neon-purple rounded hover:bg-neon-purple hover:text-white transition">
-          Login
-        </a>
-        <a routerLink="/cadastro" class="px-3 py-1 bg-gradient-to-r from-neon-purple to-neon-blue text-white rounded hover:opacity-90 transition">
-          Cadastrar
-        </a>
+
+        <!-- Se logado -->
+        <ng-container *ngIf="isLoggedIn(); else guest">
+          <span class="text-sm text-white">Olá, {{ getUserName() }}</span>
+          <button (click)="logout()" class="px-3 py-1 border border-red-500 text-red-500 rounded hover:bg-red-500 hover:text-white transition">
+            Sair
+          </button>
+        </ng-container>
+
+        <!-- Se não logado -->
+        <ng-template #guest>
+          <a routerLink="/login" class="px-3 py-1 border border-neon-purple text-neon-purple rounded hover:bg-neon-purple hover:text-white transition">
+            Login
+          </a>
+          <a routerLink="/cadastro" class="px-3 py-1 bg-gradient-to-r from-neon-purple to-neon-blue text-white rounded hover:opacity-90 transition">
+            Cadastrar
+          </a>
+        </ng-template>
       </div>
     </div>
   </div>

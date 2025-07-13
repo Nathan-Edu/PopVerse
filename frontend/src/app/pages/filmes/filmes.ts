@@ -15,12 +15,7 @@ export class FilmesComponent implements OnInit {
   searchTerm = '';
   filmes: Filme[] = [];
 
-  constructor(
-    private filmeService: FilmeService,
-    private router: Router
-  ) {}
-
-  
+  constructor(private filmeService: FilmeService, private router: Router) {}
 
   ngOnInit() {
     this.filmeService.buscarFilmes().subscribe((filmes: Filme[]) => {
@@ -29,9 +24,12 @@ export class FilmesComponent implements OnInit {
     });
   }
 
-  abrirForum(id: number) {
-    this.router.navigate(['/foruns', id]);
-  }
+  abrirForum(id: number, titulo: string, tipo: string, imagem: string) {
+  this.router.navigate(
+    ['/foruns', 'review', tipo, id],
+    { queryParams: { titulo, img: imagem } }
+  );
+}
 
   filteredMovies(): Filme[] {
     if (!this.filmes || this.filmes.length === 0) return [];

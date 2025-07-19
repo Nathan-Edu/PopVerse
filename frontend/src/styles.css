@@ -1,3 +1,45 @@
+/* 🌞 Tema Claro */
+:root {
+  --bg-color: #f9fafb;
+  --text-color: #111827;
+  --card-bg: #ffffff;
+  --border-color: #e5e7eb;
+  --accent-color: #a855f7;
+  --placeholder-color: #9ca3af;
+}
+
+/* 🌚 Tema Escuro */
+.dark {
+  --bg-color: #0e0e10;
+  --text-color: #f3f4f6;
+  --card-bg: #1f1f23;
+  --border-color: #3f3f46;
+  --accent-color: #a855f7;
+  --placeholder-color: #6b7280;
+}
+
+/* Aplicação das variáveis */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+input, textarea, select {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+::placeholder {
+  color: var(--placeholder-color);
+}
+
+.card, .glass-card {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

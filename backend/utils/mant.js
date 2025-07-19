@@ -1,5 +1,3 @@
-// backend/utils/mant.js
-
 const dotenv = require('dotenv');
 dotenv.config();  // Carrega variáveis de ambiente
 

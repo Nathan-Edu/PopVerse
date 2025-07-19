@@ -125,3 +125,11 @@ backend/
 ├── tsconfig.json
 └── README.md
 
+Iniciar o backend 
+
+ -- npx nodemon server.js --
+
+ Iniciar o frontend
+
+ -- ng serve --
+

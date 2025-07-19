@@ -1,8 +1,8 @@
 const User = require('../models/user.model');
 
-/**
- * Listar todos os usuários
- */
+
+ // Listar todos os usuários
+ 
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await User.find({}, '-password');
@@ -13,9 +13,9 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
-/**
- * Obter um usuário pelo ID
- */
+
+ // Obter um usuário pelo ID
+ 
 exports.getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id, '-password');
@@ -27,9 +27,9 @@ exports.getUserById = async (req, res) => {
   }
 };
 
-/**
- * Atualizar perfil do usuário
- */
+
+ //  Atualizar perfil do usuário
+ 
 exports.updateUserProfile = async (req, res) => {
   try {
     const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
@@ -41,9 +41,9 @@ exports.updateUserProfile = async (req, res) => {
   }
 };
 
-/**
- * Deletar usuário
- */
+
+ // Deletar usuário
+ 
 exports.deleteUser = async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
@@ -55,9 +55,9 @@ exports.deleteUser = async (req, res) => {
   }
 };
 
-/**
- * Atualizar avatar
- */
+
+ // Atualizar avatar
+ 
 exports.uploadAvatar = async (req, res) => {
   res.status(200).json({ message: 'Avatar atualizado (simulado)' });
 };
@@ -67,9 +67,9 @@ exports.updateBio = async (req, res) => {
 };
 
 
-/**
- * Criar um novo usuário
- */
+
+ // Criar um novo usuário
+ 
 exports.createUser = async (req, res) => {
   try {
     const user = await User.create(req.body);

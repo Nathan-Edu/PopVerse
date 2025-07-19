@@ -1,9 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/user.controller'); // ✅ MANTER ASSIM
-
-// Teste de debug
-console.log('🧪 Tipo de createUser:', typeof userController.createUser); // deve mostrar "function"
+const userController = require('../controllers/user.controller'); 
 
 // Rotas
 router.post('/register', userController.createUser);

@@ -17,6 +17,23 @@
         <a routerLink="/foruns" class="hover:text-neon-purple transition">Fóruns</a>
       </div>
 
+      <!-- Botão de alternar tema -->
+<button 
+  (click)="alternarTema()" 
+  class="fixed top-4 right-4 z-50 bg-white dark:bg-black border border-white/10 p-2 rounded-full shadow-md hover:scale-105 transition"
+  title="Alterar tema"
+>
+  <svg *ngIf="temaAtual === 'dark'" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+    <!-- Ícone de sol (modo claro) -->
+    <path d="M12 4V2m0 20v-2m8-8h2M2 12H4m15.07-7.07l1.41-1.41M4.93 19.07l1.41-1.41M19.07 19.07l1.41 1.41M4.93 4.93L3.52 3.52M12 6a6 6 0 100 12 6 6 0 000-12z"/>
+  </svg>
+  <svg *ngIf="temaAtual === 'light'" class="w-5 h-5 text-gray-200" fill="currentColor" viewBox="0 0 24 24">
+    <!-- Ícone de lua (modo escuro) -->
+    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+  </svg>
+</button>
+
+
       <!-- Ações do usuário -->
       <div class="hidden md:flex items-center space-x-4">
         <!-- Campo de busca -->

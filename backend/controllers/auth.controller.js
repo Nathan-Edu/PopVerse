@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const JWT_SECRET = process.env.JWT_SECRET || 'suachavesecreta';
 
-// 🔐 Registro de usuário
+//  Registro de usuário
 const registerUser = async (req, res) => {
   try {
     const { name, email, password, username, interests } = req.body;
@@ -19,7 +19,6 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ error: 'E-mail ou username já cadastrados.' });
     }
 
-    // ❗️ Removido o hash manual da senha – o model já faz isso
     const newUser = new User({ name, email, username, password, interests });
     await newUser.save();
 
@@ -38,7 +37,7 @@ const registerUser = async (req, res) => {
   }
 };
 
-// 🔐 Login do usuário
+//  Login do usuário
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
